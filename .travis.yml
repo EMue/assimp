@@ -37,8 +37,8 @@ matrix:
     - cmake --build .
     - strip code/libassimp.so
     - "git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > revision.git"
-    - "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/x64/ $S3_PARAMS"
-    - "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/x64/libassimp.so.git $S3_PARAMS"
+    #- "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/x64/ $S3_PARAMS"
+    #- "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/x64/libassimp.so.git $S3_PARAMS"
 
   # -----------------
   - name: "Linux arm32"
@@ -74,8 +74,8 @@ matrix:
     - cmake --build .
     - arm-linux-gnueabihf-strip code/libassimp.so
     - "git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > revision.git"
-    - "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/arm32/ $S3_PARAMS"
-    - "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/arm32/libassimp.so.git $S3_PARAMS"
+    #- "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/arm32/ $S3_PARAMS"
+    #- "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/arm32/libassimp.so.git $S3_PARAMS"
 
   # -----------------
   - name: "Linux arm64"
@@ -111,8 +111,8 @@ matrix:
     - cmake --build .
     - aarch64-linux-gnu-strip code/libassimp.so
     - "git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > revision.git"
-    - "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/arm64/ $S3_PARAMS"
-    - "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/arm64/libassimp.so.git $S3_PARAMS"
+    #- "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/arm64/ $S3_PARAMS"
+    #- "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/arm64/libassimp.so.git $S3_PARAMS"
 
   # -----------------
   - name: "Linux mips64"
@@ -146,8 +146,8 @@ matrix:
     - cmake --build .
     - mips64el-linux-gnuabi64-strip code/libassimp.so
     - "git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > revision.git"
-    - "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/mips64/ $S3_PARAMS"
-    - "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/mips64/libassimp.so.git $S3_PARAMS"
+    #- "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/mips64/ $S3_PARAMS"
+    #- "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/mips64/libassimp.so.git $S3_PARAMS"
 
   # -----------------
   - name: "Linux ppc64le"
@@ -183,8 +183,8 @@ matrix:
     - cmake --build .
     - powerpc64le-linux-gnu-strip code/libassimp.so
     - "git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > revision.git"
-    - "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/ppc64le/ $S3_PARAMS"
-    - "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/ppc64le/libassimp.so.git $S3_PARAMS"
+    #- "aws s3 cp code/libassimp.so s3://build.lwjgl.org/nightly/linux/ppc64le/ $S3_PARAMS"
+    #- "aws s3 cp revision.git s3://build.lwjgl.org/nightly/linux/ppc64le/libassimp.so.git $S3_PARAMS"
 
   # -----------------
   - name: "macOS"
@@ -206,5 +206,5 @@ matrix:
     - cmake --build .
     - strip -u -r code/libassimp.dylib
     - "git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > revision.git"
-    - "aws s3 cp code/libassimp.dylib s3://build.lwjgl.org/nightly/macosx/x64/ $S3_PARAMS"
-    - "aws s3 cp revision.git s3://build.lwjgl.org/nightly/macosx/x64/libassimp.dylib.git $S3_PARAMS"
+    #- "aws s3 cp code/libassimp.dylib s3://build.lwjgl.org/nightly/macosx/x64/ $S3_PARAMS"
+    #- "aws s3 cp revision.git s3://build.lwjgl.org/nightly/macosx/x64/libassimp.dylib.git $S3_PARAMS"
