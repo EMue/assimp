@@ -202,6 +202,9 @@ SET( Common_SRCS
   Common/AssertHandler.cpp
   Common/Exceptional.cpp
 )
+if ("$ENV{TRAVIS_JOB_NAME}" STREQUAL "Linux x64")
+  list(APPEND Common_SRCS wrap_memcpy.c)
+endif()
 SOURCE_GROUP(Common FILES ${Common_SRCS})
 
 SET( CApi_SRCS
@@ -1134,8 +1137,8 @@ TARGET_USE_COMMON_OUTPUT_DIRECTORY(assimp)
 # enable warnings as errors ########################################
 IF (MSVC)
   TARGET_COMPILE_OPTIONS(assimp PRIVATE /WX)
-ELSE()
-  TARGET_COMPILE_OPTIONS(assimp PRIVATE -Werror)
+#ELSE()
+#  TARGET_COMPILE_OPTIONS(assimp PRIVATE -Werror)
 ENDIF()
 
 TARGET_INCLUDE_DIRECTORIES ( assimp PUBLIC
