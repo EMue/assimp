@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ARCH: [x64, arm32, arm64]
+        ARCH: [x64, arm32, arm64, ppc64le]
         include:
           # -----
           - ARCH: x64
@@ -46,6 +46,15 @@ jobs:
             CMAKE_PARAMS:
             STRIP: aarch64-linux-gnu-strip
           # -----
+          - ARCH: ppc64le
+            runner: ubuntu-16.04
+            CROSS_ARCH: ppc64el
+            PACKAGES: gcc-5-powerpc64le-linux-gnu g++-5-powerpc64le-linux-gnu libc6-dev-ppc64el-cross
+            CROSS_PACKAGES: zlib1g-dev:ppc64el
+            CC: CC=powerpc64le-linux-gnu-gcc-5 CXX=powerpc64le-linux-gnu-g++-5
+            CMAKE_PARAMS:
+            STRIP: powerpc64le-linux-gnu-strip
+          # -----
 #          - ARCH: mips64
 #            runner: ubuntu-16.04
 #            CROSS_ARCH: mips64el
@@ -67,7 +76,7 @@ jobs:
           then
             sudo sed -i 's/deb http/deb [arch=amd64,i386] http/' /etc/apt/sources.list
             sudo grep "ubuntu.com/ubuntu" /etc/apt/sources.list | sudo tee /etc/apt/sources.list.d/ports.list
-            sudo sed -i 's/amd64,i386/armhf,arm64/' /etc/apt/sources.list.d/ports.list
+            sudo sed -i 's/amd64,i386/armhf,arm64,ppc64el/' /etc/apt/sources.list.d/ports.list
             sudo sed -i 's#http://.*/ubuntu#http://ports.ubuntu.com/ubuntu-ports#' /etc/apt/sources.list.d/ports.list
           else
             sudo rm -rf /etc/apt/sources.list
