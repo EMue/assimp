@@ -1,15 +1,9 @@
-name: LWJGL Build
+name: LWJGL Build (local)
 
 on:
   push:
     branches:
-      - master
-
-env:
-  AWS_DEFAULT_REGION: us-east-1
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  S3_PARAMS: --acl public-read --cache-control "public,must-revalidate,proxy-revalidate,max-age=0"
+      - local
 
 jobs:
   linux:
@@ -99,11 +93,11 @@ jobs:
           cmake --build .
           ${{matrix.STRIP}} bin/libassimp.so
         name: Build
-      - run: aws s3 cp build/bin/libassimp.so s3://build.lwjgl.org/nightly/linux/${{matrix.ARCH}}/ $S3_PARAMS
+      - run: echo aws s3 cp build/bin/libassimp.so s3://build.lwjgl.org/nightly/linux/${{matrix.ARCH}}/ $S3_PARAMS
         name: Upload artifact
       - run: |
           git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > libassimp.so.git
-          aws s3 cp libassimp.so.git s3://build.lwjgl.org/nightly/linux/${{matrix.ARCH}}/ $S3_PARAMS
+          echo aws s3 cp libassimp.so.git s3://build.lwjgl.org/nightly/linux/${{matrix.ARCH}}/ $S3_PARAMS
         name: Upload git revision
 
   macos:
@@ -131,11 +125,11 @@ jobs:
           cmake --build .
           strip -u -r bin/libassimp.dylib
         name: Build
-      - run: aws s3 cp build/bin/libassimp.dylib s3://build.lwjgl.org/nightly/macosx/${{matrix.ARCH}}/ $S3_PARAMS
+      - run: echo aws s3 cp build/bin/libassimp.dylib s3://build.lwjgl.org/nightly/macosx/${{matrix.ARCH}}/ $S3_PARAMS
         name: Upload artifact
       - run: |
           git log --first-parent --pretty=format:%H HEAD~2..HEAD~1 > libassimp.dylib.git
-          aws s3 cp libassimp.dylib.git s3://build.lwjgl.org/nightly/macosx/${{matrix.ARCH}}/ $S3_PARAMS
+          echo aws s3 cp libassimp.dylib.git s3://build.lwjgl.org/nightly/macosx/${{matrix.ARCH}}/ $S3_PARAMS
         name: Upload git revision
 
   windows:
@@ -166,11 +160,11 @@ jobs:
           cmake --build . --config Release
         shell: cmd
         name: Build
-      - run: aws s3 cp build\bin\Release\assimp-vc142-mt.dll s3://build.lwjgl.org/nightly/windows/${{matrix.ARCH}}/assimp.dll ${{env.S3_PARAMS}}
+      - run: echo aws s3 cp build\bin\Release\assimp-vc142-mt.dll s3://build.lwjgl.org/nightly/windows/${{matrix.ARCH}}/assimp.dll ${{env.S3_PARAMS}}
         shell: cmd
         name: Upload artifact
       - run: |
           git log --first-parent --pretty=format:%%H HEAD~2..HEAD~1 > assimp.dll.git
-          aws s3 cp assimp.dll.git s3://build.lwjgl.org/nightly/windows/${{matrix.ARCH}}/ ${{env.S3_PARAMS}}
+          echo aws s3 cp assimp.dll.git s3://build.lwjgl.org/nightly/windows/${{matrix.ARCH}}/ ${{env.S3_PARAMS}}
         shell: cmd
         name: Upload git revision
